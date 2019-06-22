@@ -22,7 +22,8 @@ class Index extends React.Component<any, IndexState> {
 
     render() {
         return (
-            <div>ind1ex</div>
+            <div>
+            </div>
         );
     }
 }
