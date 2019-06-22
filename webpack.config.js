@@ -10,7 +10,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, '/dist'),
         filename: 'bundle.min.js?v=[hash:6]',
-        publicPath: '/wp-content/themes/bizhack_siberia'
+        publicPath: '/'
 
     },
     module: {

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import 'semantic-ui-css/semantic.min.css';
 
 interface IndexState {
     [name: string]: any,
@@ -23,7 +22,7 @@ class Index extends React.Component<any, IndexState> {
 
     render() {
         return (
-            <div>index</div>
+            <div>ind1ex</div>
         );
     }
 }
