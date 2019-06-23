@@ -10,9 +10,12 @@ namespace HealthAPI.Models
         public string Id { get; set; }
 
         [Column(Name ="vaccineName")]
-        public string ClientId { get; set; }
+        public string VaccineName { get; set; }
 
         [Column(Name ="vaccineDate")]
         public DateTime VaccineDate { get; set; }
+
+        [Column(Name = "clientId")]
+        public string ClientId { get; set; }
     }
 }

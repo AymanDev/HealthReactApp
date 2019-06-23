@@ -11,7 +11,7 @@ namespace HealthAPI.Models
         [Column(Name ="clientid")]
         public string ClientId { get; set; }
 
-        [Column(Name ="alergyName")]
+        [Column(Name ="allergyName")]
         public string AlergyName { get; set; }
     }
 }

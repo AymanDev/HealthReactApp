@@ -19,8 +19,7 @@ namespace HealthAPI.Models
         public string description { get; set; }
 
         [DataMember]
-        public string diagnosis { get; set; }
-
+        public string diseaseId { get; set; }
         [DataMember]
         public string userId { get; set; }
     }
