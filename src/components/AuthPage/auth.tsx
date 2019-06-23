@@ -69,7 +69,7 @@ class AuthPage extends React.Component<any, AuthPageState> {
     if (form.checkValidity()) {
       this.auth(event);
     }
-    this.setState({ validated: true, loginError: true });
+    this.setState({ validated: true });
   }
 
   render() {

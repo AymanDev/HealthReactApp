@@ -17,3 +17,17 @@
   margin-bottom: 40px;
 }
 
+.menu-item {
+  font-size: 1.2em;
+  height: 40px;
+  font-family: "Futura Book Italic";
+  transition: 0.3s;
+}
+
+.menu-item:hover {
+  border-bottom: 2px solid var(--primary);
+}
+.menu-item.active {
+  transition: 0.3s;
+  font-family: "FuturaDemiC";
+}
