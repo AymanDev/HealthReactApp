@@ -54,7 +54,7 @@ class AuthPage extends React.Component<any, AuthPageState> {
       return;
     }
 
-    localStorage.setItem("userData", responseData);
+    localStorage.setItem("fio", responseData.Surname + ' ' + responseData.Name + ' ' + responseData.PatronymicName);
     localStorage.setItem("login", this.state.login);
     localStorage.setItem("password", this.state.password);
     this.props.history.push("/panel");

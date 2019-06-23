@@ -31,6 +31,7 @@ interface PanelPageState {
   snilsData?: SnilsData;
   createMode: boolean;
   activeTab: string;
+  fio?: string;
 }
 export interface SnilsData {
   allergy: string[];
@@ -67,8 +68,13 @@ class PanelPage extends React.Component<any, PanelPageState> {
     snilsData: null,
     loading: false,
     createMode: false,
-    activeTab: "user-data"
+    activeTab: "user-data",
+    fio: ""
   };
+
+  componentDidMount() {
+    this.setState({ fio: localStorage.getItem("fio") });
+  }
 
   logout() {
     localStorage.setItem("userData", null);
@@ -133,6 +139,7 @@ class PanelPage extends React.Component<any, PanelPageState> {
                 Статистика
               </Nav.Link>
             </Nav>
+            <h4 className="mt-3 mr-4">{this.state.fio}</h4>
             <Button className="button" onClick={() => this.logout()}>
               Выйти
             </Button>
