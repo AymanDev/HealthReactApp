@@ -23,12 +23,14 @@ import {
   SnilsRequest,
   EMPTY_SNILS_DATA
 } from "../../Helper";
+import StatisticsPage from "../StatisticPage/statistics";
 const logo = require("./images/logo.png");
 interface PanelPageState {
   snils?: string;
   loading?: boolean;
   snilsData?: SnilsData;
   createMode: boolean;
+  activeTab: string;
 }
 export interface SnilsData {
   allergy: string[];
@@ -64,7 +66,8 @@ class PanelPage extends React.Component<any, PanelPageState> {
     snils: "",
     snilsData: null,
     loading: false,
-    createMode: false
+    createMode: false,
+    activeTab: "user-data"
   };
 
   logout() {
@@ -97,7 +100,10 @@ class PanelPage extends React.Component<any, PanelPageState> {
       <div>
         <Navbar className="navbar justify-content-between">
           <Container>
-            <Navbar.Brand href="/panel" className="d-flex flex-row justify-content-center align-items-center">
+            <Navbar.Brand
+              href="/panel"
+              className="d-flex flex-row justify-content-center align-items-center"
+            >
               <img
                 src={logo}
                 alt="Logo"
@@ -107,53 +113,88 @@ class PanelPage extends React.Component<any, PanelPageState> {
               />
               <strong className="title ml-2 mt-3">Health</strong>
             </Navbar.Brand>
+            <Nav className="mr-auto mt-3">
+              <Nav.Link
+                className={
+                  "ml-4 menu-item" +
+                  (this.state.activeTab === "user-data" ? " active" : "")
+                }
+                onClick={() => this.setState({ activeTab: "user-data" })}
+              >
+                Пациенты
+              </Nav.Link>
+              <Nav.Link
+                className={
+                  "ml-4 menu-item" +
+                  (this.state.activeTab === "statistics" ? " active" : "")
+                }
+                onClick={() => this.setState({ activeTab: "statistics" })}
+              >
+                Статистика
+              </Nav.Link>
+            </Nav>
             <Button className="button" onClick={() => this.logout()}>
               Выйти
             </Button>
           </Container>
         </Navbar>
-        <Container className="snils-bar">
-          <Row>
-            <Col xs={3}>
-              <FormControl
-                className="input text-center"
-                placeholder="Поиск пациента по СНИЛС"
-                aria-label="Поиск пациента по СНИЛС"
-                onChange={event => this.setState({ snils: event.target.value })}
-              />
-            </Col>
-            <Col xs={1} className="p-0">
-              <Button className="button" onClick={() => this.search()}>
-                Найти
-              </Button>
-            </Col>
-            <Col xs={3} className="ml-4">
-              <Button
-                className="button outline"
-                onClick={() => this.enterCreateMode()}
-              >
-                Завести новую карточку
-              </Button>
-            </Col>
-          </Row>
-        </Container>
-        <Container>
-          {(() => {
-            if (this.state.snilsData !== null) {
-              return <UserData data={this.state.snilsData} />;
-            }
-            if (this.state.createMode) {
-              return <UserData data={EMPTY_SNILS_DATA} editable={true} />;
-            }
-            if (this.state.loading) {
-              return (
-                <Container className="w-100 h-100 d-flex align-items-center justify-content-center color-primary">
-                  <FontAwesomeIcon icon={faSpinner} spin size="5x" />
+        {(() => {
+          if (this.state.activeTab === "statistics") {
+            return <StatisticsPage />;
+          }
+          if (this.state.activeTab === "user-data") {
+            return (
+              <div>
+                <Container className="snils-bar">
+                  <Row>
+                    <Col xs={3}>
+                      <FormControl
+                        className="input text-center"
+                        placeholder="Поиск пациента по СНИЛС"
+                        aria-label="Поиск пациента по СНИЛС"
+                        onChange={event =>
+                          this.setState({ snils: event.target.value })
+                        }
+                      />
+                    </Col>
+                    <Col xs={1} className="p-0">
+                      <Button className="button" onClick={() => this.search()}>
+                        Найти
+                      </Button>
+                    </Col>
+                    <Col xs={3} className="ml-4">
+                      <Button
+                        className="button outline"
+                        onClick={() => this.enterCreateMode()}
+                      >
+                        Завести новую карточку
+                      </Button>
+                    </Col>
+                  </Row>
                 </Container>
-              );
-            }
-          })()}
-        </Container>
+                <Container>
+                  {(() => {
+                    if (this.state.snilsData !== null) {
+                      return <UserData data={this.state.snilsData} />;
+                    }
+                    if (this.state.createMode) {
+                      return (
+                        <UserData data={EMPTY_SNILS_DATA} editable={true} />
+                      );
+                    }
+                    if (this.state.loading) {
+                      return (
+                        <Container className="w-100 h-100 d-flex align-items-center justify-content-center color-primary">
+                          <FontAwesomeIcon icon={faSpinner} spin size="5x" />
+                        </Container>
+                      );
+                    }
+                  })()}
+                </Container>
+              </div>
+            );
+          }
+        })()}
       </div>
     );
   }

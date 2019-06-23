@@ -37,3 +37,6 @@
   padding: 0;
   padding-left: 4px;
 }
+ul{
+  list-style: none;
+}
