@@ -93,6 +93,7 @@ class AuthPage extends React.Component<any, AuthPageState> {
               maxLength={16}
               value={this.state.login}
               onChange={event => this.setState({ login: event.target.value })}
+              className="input"
             />
             <Form.Control.Feedback type="invalid">
               Пожалуйста введите логин!
@@ -110,12 +111,13 @@ class AuthPage extends React.Component<any, AuthPageState> {
               onChange={event =>
                 this.setState({ password: event.target.value })
               }
+              className="input"
             />
             <Form.Control.Feedback type="invalid">
               Пожалуйста введите пароль!
             </Form.Control.Feedback>
           </Form.Group>
-          <Button type="submit" block>
+          <Button type="submit" block className="button">
             Войти
           </Button>
           {(() => {

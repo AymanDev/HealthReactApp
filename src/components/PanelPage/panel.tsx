@@ -97,7 +97,7 @@ class PanelPage extends React.Component<any, PanelPageState> {
       <div>
         <Navbar className="navbar justify-content-between">
           <Container>
-            <Navbar.Brand className="d-flex flex-row justify-content-center align-items-center">
+            <Navbar.Brand href="/panel" className="d-flex flex-row justify-content-center align-items-center">
               <img
                 src={logo}
                 alt="Logo"
@@ -105,7 +105,7 @@ class PanelPage extends React.Component<any, PanelPageState> {
                 height="69"
                 className="d-inline-block align-top logo"
               />
-              <strong className="title ml-2">Health</strong>
+              <strong className="title ml-2 mt-3">Health</strong>
             </Navbar.Brand>
             <Button className="button" onClick={() => this.logout()}>
               Выйти
@@ -119,7 +119,6 @@ class PanelPage extends React.Component<any, PanelPageState> {
                 className="input text-center"
                 placeholder="Поиск пациента по СНИЛС"
                 aria-label="Поиск пациента по СНИЛС"
-                defaultValue="11111111111"
                 onChange={event => this.setState({ snils: event.target.value })}
               />
             </Col>

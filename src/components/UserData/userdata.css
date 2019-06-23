@@ -1,11 +1,14 @@
 .user-data {
-  background: #f7f7f7;
+  background: url("./images/bg.png");
+  background-size: cover;
+  background-position: center;
   padding: 40px 20px;
   border-radius: 10px;
 }
 .user-data .header {
   color: var(--primary);
   font-family: "FuturaDemiC";
+  font-size: 1.1em;
 }
 .gray-bg {
   background-color: #f7f7f7;
