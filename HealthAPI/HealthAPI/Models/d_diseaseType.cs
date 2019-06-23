@@ -9,6 +9,6 @@ namespace HealthAPI.Models
         public string Id { get; set; }
 
         [Column(Name = "diseaseName")]
-        public string diseaseName { get; set; }
+        public string DiseaseName { get; set; }
     }
 }

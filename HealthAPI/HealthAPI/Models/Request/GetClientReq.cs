@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace HealthAPI.Models
 {
     [DataContract]
-    public class ClientReq
+    public class GetClientReq
     {
         [DataMember]
         public string snils { get; set; }

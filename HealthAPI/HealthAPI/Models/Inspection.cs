@@ -15,11 +15,17 @@ namespace HealthAPI.Models
         [Column(Name = "fullDate")]
         public DateTime FullDate { get; set; }
 
+        [Column(Name = "diseaseid")]
+        public string Diseaseid { get; set; }
+
         [Column(Name = "description")]
         public string Description { get; set; }
 
         [Column(Name = "diagnosis")]
         public string Diagnosis { get; set; }
+
+        [Column(Name = "treatment")]
+        public string Treatment { get; set; }
 
         [Column(Name = "userid")]
         public string Userid { get; set; }
