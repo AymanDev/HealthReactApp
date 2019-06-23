@@ -3,11 +3,13 @@ import { SnilsData } from "./components/PanelPage/panel";
 export const URL_DOMAIN = "https://f5520718.ngrok.io/";
 export const AUTH = "api/Health/Auth";
 export const SNILS = "api/Health/GetClient";
+export const DISEASE = "api/Health/GetDiseaseHistory";
+
 
 export const EMPTY_SNILS_DATA: SnilsData = {
   allergy: [],
   chronic: [],
-  disiease: [],
+  disease: [],
   client: {
     Addres: "",
     BirthDate: "",

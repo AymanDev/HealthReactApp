@@ -10,7 +10,10 @@ import {
   Button,
   Navbar,
   FormControl,
-  Spinner
+  Spinner,
+  Nav,
+  Tabs,
+  Tab
 } from "react-bootstrap";
 import UserData from "../../components/UserData/userdata";
 import {
@@ -46,7 +49,7 @@ export interface SnilsData {
     PatronymicName?: string;
     Surname?: string;
   };
-  disiease: {
+  disease: {
     Name: string;
     EndDate: string;
     Description: string;
@@ -84,7 +87,8 @@ class PanelPage extends React.Component<any, PanelPageState> {
 
   enterCreateMode() {
     this.setState({
-      createMode: true
+      createMode: true,
+      snilsData: null
     });
   }
 
@@ -134,6 +138,7 @@ class PanelPage extends React.Component<any, PanelPageState> {
             </Col>
           </Row>
         </Container>
+        <Container>
         {(() => {
           if (this.state.snilsData !== null) {
             return <UserData data={this.state.snilsData} />;
@@ -149,6 +154,7 @@ class PanelPage extends React.Component<any, PanelPageState> {
             );
           }
         })()}
+        </Container>
       </div>
     );
   }
