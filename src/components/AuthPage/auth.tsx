@@ -1,84 +1,134 @@
 import * as React from "react";
-import {
-  Avatar,
-  Container,
-  CssBaseline,
-  TextField,
-  Typography,
-  Button,
-  Paper
-} from "@material-ui/core";
 import "./auth.css";
 const logo = require("./images/logo.png");
+import {
+  Button,
+  Form,
+  Container,
+  Row,
+  Col,
+  Image,
+  Alert
+} from "react-bootstrap";
+import axios from "axios";
+import { URL_DOMAIN, AUTH, AuthRequest, postData } from "../../Helper";
 
 interface AuthPageState {
   login: string;
   password: string;
+  validated: boolean;
+  loginError: boolean;
 }
 
 class AuthPage extends React.Component<any, AuthPageState> {
   state = {
     login: "",
-    password: ""
+    password: "",
+    validated: false,
+    loginError: false
   };
 
-  auth(event) {
-    this.props.history.push("/panel");
+  componentDidMount() {
+    const login = localStorage.getItem("login");
+    const password = localStorage.getItem("password");
+
+    if (login !== null && password !== null) {
+      this.setState({
+        login: localStorage.getItem("login"),
+        password: localStorage.getItem("password")
+      });
+    }
+  }
+
+  async auth(event) {
     event.preventDefault();
+    event.stopPropagation();
+
+    const data: AuthRequest = {
+      login: this.state.login,
+      pass: this.state.password
+    };
+    const responseData = await postData(URL_DOMAIN + AUTH, data);
+    if (responseData === null) {
+      this.setState({ loginError: true });
+      return;
+    }
+
+    localStorage.setItem("userData", responseData);
+    localStorage.setItem("login", this.state.login);
+    localStorage.setItem("password", this.state.password);
+    this.props.history.push("/panel");
+  }
+
+  async handleSubmit(event) {
+    const form = event.currentTarget;
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    if (form.checkValidity()) {
+      this.auth(event);
+    }
+    this.setState({ validated: true, loginError: true });
   }
 
   render() {
+    const { validated } = this.state;
+
     return (
-      <div>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Paper className="paper">
-            <img src={logo} alt="Logo" className="avatar" />
-            <Typography component="h1" variant="h5">
-              Вход
-            </Typography>
-            <form className="form" onSubmit={event => this.auth(event)}>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="login"
-                label="Логин"
-                name="login"
-                autoFocus
-                autoComplete="login"
-                value={this.state.login}
-                onChange={login => this.setState({ login: login.target.value })}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Пароль"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={this.state.password}
-                onChange={password =>
-                  this.setState({ password: password.target.value })
-                }
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className="submit"
-              >
-                Войти
-              </Button>
-            </form>
-          </Paper>
-        </Container>
-      </div>
+      <Container className="h-100 d-flex flex-column justify-content-center align-items-center">
+        <Image src={logo} alt="Logo" className="logo" />
+        <Form
+          noValidate
+          validated={validated}
+          onSubmit={event => this.handleSubmit(event)}
+        >
+          <Form.Group controlId="formLogin">
+            <Form.Label>Логин:</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Логин..."
+              required
+              minLength={6}
+              maxLength={16}
+              value={this.state.login}
+              onChange={event => this.setState({ login: event.target.value })}
+            />
+            <Form.Control.Feedback type="invalid">
+              Пожалуйста введите логин!
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group controlId="formPassword">
+            <Form.Label>Пароль:</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Пароль..."
+              required
+              minLength={6}
+              maxLength={32}
+              value={this.state.password}
+              onChange={event =>
+                this.setState({ password: event.target.value })
+              }
+            />
+            <Form.Control.Feedback type="invalid">
+              Пожалуйста введите пароль!
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Button type="submit" block>
+            Войти
+          </Button>
+          {(() => {
+            if (this.state.loginError) {
+              return (
+                <Alert variant="danger" className="mt-3">
+                  Неверный логин и/или пароль!
+                </Alert>
+              );
+            }
+          })()}
+        </Form>
+      </Container>
     );
   }
 }

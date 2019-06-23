@@ -35,13 +35,17 @@
     "@types/react-dom": "^16.8.4"
   },
   "dependencies": {
-    "@material-ui/core": "^4.1.1",
-    "@material-ui/icons": "^4.2.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.19",
+    "@fortawesome/free-solid-svg-icons": "^5.9.0",
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "axios": "^0.18.0",
+    "bootstrap": "^4.3.1",
     "devextreme": "^19.1.4",
     "devextreme-react": "^19.1.4",
     "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.9",
     "react-dom": "^16.8.6",
-    "react-router-dom": "^5.0.0"
+    "react-router-dom": "^5.0.0",
+    "spinthatshit": "^1.0.4"
   }
 }

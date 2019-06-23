@@ -1,0 +1,79 @@
+@font-face {
+  font-family: "FuturaDemiC";
+  src: local("FuturaDemiC"),
+    url("https://nomail.com.ua/files/woff/cb401f6ff510dca7f9c2eb1894b09e79.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Futura Book Italic";
+  src: url("../public/fonts/FuturaBookC-Italic.eot");
+  src: url("../public/fonts/FuturaBookC-Italic.eot?#iefix")
+      format("embedded-opentype"),
+    url("../public/fonts/FuturaBookC-Italic.woff") format("woff"),
+    url("../public/fonts/FuturaBookC-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: "Futura Book Italic";
+  --primary: rgba(0, 64, 212, 1);
+  --gray: #424242;
+}
+
+strong {
+  font-family: "FuturaDemiC";
+}
+
+.color-primary {
+  color: var(--primary);
+}
+
+.button {
+  border-radius: 20px;
+  border: none;
+  padding: 7px 25px;
+  padding-bottom: 4px;
+  background: rgb(58, 111, 232);
+  background: linear-gradient(
+    90deg,
+    rgba(58, 111, 232, 1) 0%,
+    rgba(0, 64, 212, 1) 100%
+  );
+  box-shadow: 0px 5px 15px rgba(0, 64, 212, 0.5);
+  transition: box-shadow 0.2s;
+}
+.button:hover {
+  box-shadow: 0px 5px 20px rgba(0, 64, 212, 1);
+  transition: box-shadow.2s;
+}
+
+.button.outline {
+  background: none;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  box-shadow: none;
+  padding: 5px 25px;
+  transition: 0.2s;
+}
+
+.button.outline:hover {
+  background: rgb(58, 111, 232);
+  background: linear-gradient(
+    90deg,
+    rgba(58, 111, 232, 1) 0%,
+    rgba(0, 64, 212, 1) 100%
+  );
+  color: var(--light);
+  box-shadow: 0px 5px 15px rgba(0, 64, 212, 0.5);
+  transition: 0.2s;
+}
+
+.input {
+  border-radius: 20px;
+  color: var(--gray);
+  padding-bottom: 4px;
+}

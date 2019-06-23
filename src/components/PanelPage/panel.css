@@ -1,0 +1,19 @@
+.navbar {
+  background-color: #f5f9ff;
+  height: 90px;
+}
+
+.navbar .logo {
+  transform: rotate(-35deg);
+  width: 60px;
+  height: 69px;
+}
+.navbar .title {
+  font-size: 28px;
+}
+
+.snils-bar {
+  margin-top: 35px;
+  margin-bottom: 40px;
+}
+
