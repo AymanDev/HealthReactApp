@@ -97,7 +97,7 @@ class PanelPage extends React.Component<any, PanelPageState> {
       <div>
         <Navbar className="navbar justify-content-between">
           <Container>
-            <Navbar.Brand className="d-flex flex-row justift-content-center align-items-center">
+            <Navbar.Brand className="d-flex flex-row justify-content-center align-items-center">
               <img
                 src={logo}
                 alt="Logo"
@@ -139,21 +139,21 @@ class PanelPage extends React.Component<any, PanelPageState> {
           </Row>
         </Container>
         <Container>
-        {(() => {
-          if (this.state.snilsData !== null) {
-            return <UserData data={this.state.snilsData} />;
-          }
-          if (this.state.createMode) {
-            return <UserData data={EMPTY_SNILS_DATA} editable={true} />;
-          }
-          if (this.state.loading) {
-            return (
-              <Container className="w-100 h-100 d-flex align-items-center justify-content-center color-primary">
-                <FontAwesomeIcon icon={faSpinner} spin size="5x" />
-              </Container>
-            );
-          }
-        })()}
+          {(() => {
+            if (this.state.snilsData !== null) {
+              return <UserData data={this.state.snilsData} />;
+            }
+            if (this.state.createMode) {
+              return <UserData data={EMPTY_SNILS_DATA} editable={true} />;
+            }
+            if (this.state.loading) {
+              return (
+                <Container className="w-100 h-100 d-flex align-items-center justify-content-center color-primary">
+                  <FontAwesomeIcon icon={faSpinner} spin size="5x" />
+                </Container>
+              );
+            }
+          })()}
         </Container>
       </div>
     );

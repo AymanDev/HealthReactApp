@@ -7,7 +7,8 @@ import {
   Card,
   Button,
   Tabs,
-  Tab
+  Tab,
+  Table
 } from "react-bootstrap";
 import React = require("react");
 import { SnilsData } from "../PanelPage/panel";
@@ -20,33 +21,47 @@ interface UserDataProps {
 }
 interface UserDataState {
   data: SnilsData;
-  diseaseData: any;
+  diseaseData?: {
+    disease: DiseaseData;
+    inspection: InspectionData[];
+  };
   editable?: boolean;
 }
+interface DiseaseData {
+  Description: string;
+  EndDate: string;
+  Homeless: boolean;
+  Id: string;
+  StartDate: string;
+  diseaseName: string;
+}
+interface InspectionData {
+  ClientId: string;
+  Description: string;
+  Diagnosis: string;
+  Treatment: string;
+  DiseaseId: string;
+  FullDate: string;
+  Id: string;
+  Userid: string;
+}
 class UserData extends React.Component<UserDataProps, UserDataState> {
-  constructor(props: UserDataProps) {
-    super(props);
-
-    this.state = {
-      data: props.data,
-      diseaseData: {},
-      editable: typeof props.editable !== "undefined"
-    };
-  }
-
   componentDidMount() {
-    postData(URL_DOMAIN + DISEASE, { clientId: this.state.data.client.Id })
-      .then(diseaseData => {
-        console.log(diseaseData);
-        this.setState({
-          diseaseData
-        });
+    postData(URL_DOMAIN + DISEASE, {}).then(res =>
+      this.setState({
+        data: this.props.data,
+        editable: typeof this.props.editable !== "undefined",
+        diseaseData: res
       })
-      .catch(console.error);
+    );
   }
 
   render() {
+    if (this.state === null) {
+      return <div />;
+    }
     const { data, editable } = this.state;
+    const hasDisease = this.state.diseaseData.disease !== null;
     return (
       <Container className="user-data">
         <Tabs defaultActiveKey="home" id="info-tabs">
@@ -363,7 +378,56 @@ class UserData extends React.Component<UserDataProps, UserDataState> {
             </Row>
           </Tab>
           <Tab eventKey="disease" title="Посещения">
-            Посещения
+            <Table responsive>
+              <thead>
+                <tr>
+                  <th>Дата приема</th>
+                  <th>Диагноз</th>
+                  <th>Жалобы</th>
+                  <th>Назначенное лечение</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(() => {
+                  if (typeof this.state.diseaseData === "undefined") {
+                    return;
+                  }
+                  const inspections = [];
+                  console.log(this.state.diseaseData);
+                  this.state.diseaseData.inspection.forEach(inspection => {
+                    inspections.push(
+                      <tr>
+                        <td>{inspection.FullDate}</td>
+                        <td>{inspection.Diagnosis}</td>
+                        <td>{inspection.Description}</td>
+                        <td>{inspection.Treatment}</td>
+                      </tr>
+                    );
+                  });
+                  return inspections;
+                })()}
+                <tr>
+                  <td />
+                </tr>
+              </tbody>
+            </Table>
+            <Container className="d-flex justify-content-between">
+              <Button className="button outline" disabled={!hasDisease}>
+                Открыть больничный
+              </Button>
+              <Button className="button outline" disabled>
+                Добавить запись
+              </Button>
+              <Button className="button outline" disabled={hasDisease}>
+                Закрыть больничный
+              </Button>
+              <Button
+                className="button"
+                onClick={() => alert("Прием был завершен!")}
+              >
+                Завершить прием
+              </Button>
+            </Container>
           </Tab>
         </Tabs>
       </Container>
